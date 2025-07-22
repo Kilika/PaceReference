@@ -46,7 +46,7 @@ namespace PaceRef.Patches
 
         private static string BuildScoreboardText(SteamworksLeaderboard.Entry[] entries)
         {
-            if (entries == null || entries.Length == 0)
+            if (entries == null || !entries.Any())
                 return "No leaderboard data";
             
             int configSampleSize = Mod.SampleSizeConfig.Value;
