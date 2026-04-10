@@ -13,10 +13,7 @@ namespace PaceRef.Patches
         {
             string levelPath = G.Sys.GameManager_.LevelPath_;
             GameModeID gameModeID = G.Sys.GameManager_.Mode_.GameModeID_;
-
-            bool isTimeMode = ScoreboardBuilder.IsTimeMode(gameModeID);
-            Func<int, string> formatScore = ScoreboardBuilder.GetFormatter(isTimeMode);
-
+            
             G.Sys.SteamworksManager_.Leaderboard_.DownloadLeaderboardInfo(
                 levelPath,
                 gameModeID,
@@ -26,7 +23,7 @@ namespace PaceRef.Patches
                         return;
 
                     int[] scores = Enumerable.Select(entries, e => e.Score_).ToArray();
-                    string scoreboardData = ScoreboardBuilder.Build(scores, isTimeMode, Mod.SampleSizeConfig.Value, formatScore);
+                    string scoreboardData = ScoreboardBuilder.Build(scores, Mod.SampleSizeConfig.Value, gameModeID);
                     AddScoreboardDataToLabel(__instance, scoreboardData);
                 },
                 OnlineLeaderboard.RangeRequestType.Global, 1, Mod.SampleSizeConfig.Value

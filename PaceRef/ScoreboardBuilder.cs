@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace PaceRef
 {
@@ -12,41 +13,28 @@ namespace PaceRef
         /// For time modes: ascending (lowest ms first = best).
         /// For points modes (Stunt): descending (highest eV first = best).
         /// </param>
-        /// <param name="isTimeMode">
-        /// False for Stunt (scores are raw points); true for all other modes (scores are milliseconds).
-        /// </param>
         /// <param name="sampleSize">Maximum number of entries to include in the average.</param>
-        /// <param name="formatScore">Converts a raw score int to its display string.</param>
-        internal static string Build(int[] scores, bool isTimeMode, int sampleSize, Func<int, string> formatScore)
+        /// <param name="gameModeId">Used GamemodeId</param>
+        internal static string Build(int[] scores, int sampleSize, GameModeID gameModeId)
         {
-            if (scores == null || scores.Length == 0)
-                return "No leaderboard data";
-
-            int usedSampleSize = scores.Length < sampleSize ? scores.Length : sampleSize;
+            int usedSampleSize = Math.Min(sampleSize, scores.Length);
+            if (usedSampleSize == 0)
+                return NguiLabel("No scores yet!");
+                
+            int[] topScores = scores.Take(sampleSize).ToArray();
             int best = scores[0];
+            int average = (int)topScores.Average();
 
-            long sum = 0;
-            for (int i = 0; i < usedSampleSize; i++)
-                sum += scores[i];
-            int average = (int)(sum / usedSampleSize);
-
+            Func<int, string> formatScore = GetFormatter(gameModeId);
             return NguiLabel("Global Best:") + " " + NguiValue(formatScore(best)) + "\n" +
-                   NguiLabel("Top " + usedSampleSize + " Avg:") + " " + NguiValue(formatScore(average));
+                   NguiLabel("Top " + topScores.Length + " Avg:") + " " + NguiValue(formatScore(average));
         }
 
-        // NGUI centered grey label, e.g. "[c][AAAAAA]Global Best:[-][/c]"
         private static string NguiLabel(string text) => "[c][AAAAAA]" + text + "[-][/c]";
-
-        // NGUI centered white value, e.g. "[c][FFFFFF]1:23.456[-][/c]"
         private static string NguiValue(string text) => "[c][FFFFFF]" + text + "[-][/c]";
-
-        internal static bool IsTimeMode(GameModeID gameModeID) => gameModeID != GameModeID.Stunt;
-
-        internal static Func<int, string> GetFormatter(bool isTimeMode)
-        {
-            return isTimeMode
+        private static bool IsTimeMode(GameModeID gameModeID) => gameModeID != GameModeID.Stunt;
+        private static Func<int, string> GetFormatter(GameModeID gameModeId) => IsTimeMode(gameModeId) 
                 ? (Func<int, string>)(ms => GUtils.GetFormattedMS(ms))
                 : score => score.ToString("N0", System.Globalization.CultureInfo.InvariantCulture) + " eV";
-        }
     }
 }
