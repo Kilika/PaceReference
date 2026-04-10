@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <!-- ScoreboardBuilder uses only BCL (System, System.Linq), so no game DLLs needed -->
+    <!-- GameModeID is stubbed in ScoreboardBuilderStub.cs for compilation -->
+    <DefineConstants>PACEREF_TESTS</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NUnit" Version="3.14.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Link the pure-logic file directly — no BepInEx/Unity/game deps required -->
+    <Compile Include="..\PaceRef\ScoreboardBuilder.cs" Link="ScoreboardBuilder.cs" />
+  </ItemGroup>
+
+</Project>
