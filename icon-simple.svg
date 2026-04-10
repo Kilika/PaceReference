@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <!-- Dark background circle -->
+  <circle cx="128" cy="128" r="120" fill="#1a1a1a" stroke="#333" stroke-width="4"/>
+  
+  <!-- Large stopwatch in center -->
+  <g transform="translate(128, 128)">
+    <!-- Main stopwatch body -->
+    <circle r="100" fill="#2a2a2a" stroke="#555" stroke-width="4"/>
+    
+    <!-- Clock face -->
+    <circle r="90" fill="#1a1a1a" stroke="#444" stroke-width="2"/>
+    
+    <!-- Clock numbers -->
+    <text x="0" y="-75" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#444" font-weight="bold">12</text>
+    <text x="75" y="5" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#444" font-weight="bold">3</text>
+    <text x="0" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#444" font-weight="bold">6</text>
+    <text x="-75" y="5" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#444" font-weight="bold">9</text>
+    
+    <!-- Clock hands -->
+    <line x1="0" y1="0" x2="0" y2="-65" stroke="#ffff00" stroke-width="6" stroke-linecap="round"/>
+    <line x1="0" y1="0" x2="45" y2="0" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+    
+    <!-- Center dot -->
+    <circle r="4" fill="#ffff00"/>
+    
+    <!-- Crown/button -->
+    <rect x="-6" y="-110" width="12" height="10" fill="#555" rx="3"/>
+    
+    <!-- "PaceRef" text inside clock at bottom -->
+    <text x="0" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-style="italic" fill="#ffffff" font-weight="bold">PaceRef</text>
+  </g>
+</svg>
