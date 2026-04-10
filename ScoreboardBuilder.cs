@@ -30,9 +30,15 @@ namespace PaceRef
                 sum += scores[i];
             int average = (int)(sum / usedSampleSize);
 
-           return "[c][AAAAAA]" + "Global Best" + ":[-][/c] [c][FFFFFF]" + formatScore(best) + "[-][/c]\n" +
-                   "[c][AAAAAA]Top " + usedSampleSize + " Avg:[-][/c] [c][FFFFFF]" + formatScore(average) + "[-][/c]";
+            return NguiLabel("Global Best:") + " " + NguiValue(formatScore(best)) + "\n" +
+                   NguiLabel("Top " + usedSampleSize + " Avg:") + " " + NguiValue(formatScore(average));
         }
+
+        // NGUI centered grey label, e.g. "[c][AAAAAA]Global Best:[-][/c]"
+        private static string NguiLabel(string text) => "[c][AAAAAA]" + text + "[-][/c]";
+
+        // NGUI centered white value, e.g. "[c][FFFFFF]1:23.456[-][/c]"
+        private static string NguiValue(string text) => "[c][FFFFFF]" + text + "[-][/c]";
 
         internal static bool IsTimeMode(GameModeID gameModeID) => gameModeID != GameModeID.Stunt;
 
