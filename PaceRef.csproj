@@ -55,6 +55,7 @@
     <Compile Include="Mod.cs" />
     <Compile Include="Patches\PauseMenuLogic_AddDetailedScoreBoardPanel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScoreboardBuilder.cs" />
   </ItemGroup>
   <PropertyGroup>
     <BepInExPluginsPath>$(AppData)\r2modmanPlus-local\Distance\profiles\CustomMod\BepInEx\plugins</BepInExPluginsPath>
